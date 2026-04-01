@@ -1,0 +1,120 @@
+// ===== CHATBOT FUNCTIONALITY =====
+
+const chatbotData = {
+  greetings: ["bonjour", "salut", "hello", "hi", "coucou"],
+  tools: ["outil", "ia", "logiciel", "app", "application"],
+  pricing: ["prix", "gratuit", "payant", "coût", "combien"],
+  comparison: ["comparatif", "meilleur", "vs", "versus", "quel choisir"],
+  affiliate: ["affiliation", "commission", "lien", "partenaire"]
+};
+
+const chatbotResponses = {
+  greetings: [
+    "Bonjour ! 👋 Je suis l'assistant IA du site. Comment puis-je t'aider aujourd'hui ?",
+    "Salut ! 🤖 Je suis là pour répondre à tes questions sur les outils IA. Que veux-tu savoir ?",
+    "Coucou ! 👋 Tu cherches un outil IA en particulier ? Je peux t'aider !"
+  ],
+  tools: [
+    "Nous avons testé plus de 10 outils IA gratuits ! Consulte notre article <a href='articles/top-10-outils-ia-gratuits.html'>Top 10 outils IA gratuits</a> pour découvrir les meilleurs.",
+    "Les meilleurs outils IA pour freelances sont ChatGPT, Claude et Gemini. Tu veux un comparatif détaillé ?"
+  ],
+  pricing: [
+    "La plupart des outils que nous recommandons ont une version gratuite ! Check notre article <a href='articles/top-10-outils-ia-gratuits.html'>Top 10 outils IA gratuits</a>.",
+    "Good news : tu peux commencer gratuitement avec la plupart des outils IA. Certains ont des versions premium optionnelles."
+  ],
+  comparison: [
+    "Pour ChatGPT vs Claude vs Gemini, on a fait un comparatif complet ici : <a href='articles/chatgpt-vs-claude-vs-gemini.html'>ChatGPT vs Claude vs Gemini</a>",
+    "Le meilleur outil dépend de tes besoins. Pour la rédaction : Claude. Pour le code : ChatGPT. Pour la recherche : Gemini."
+  ],
+  affiliate: [
+    "Certains liens sur ce site sont affiliés. Cela signifie qu'on peut toucher une commission sans coût supplémentaire pour toi. Ça nous aide à maintenir le site gratuit ! 🙏",
+    "L'affiliation nous permet de continuer à produire du contenu gratuit. Merci de nous soutenir !"
+  ],
+  default: [
+    "Je n'ai pas trouvé de réponse précise dans nos articles. Tu peux consulter notre <a href='index.html'>page d'accueil</a> ou nous <a href='contact.html'>contacter</a> directement !",
+    "Bonne question ! 🤔 Je te recommande de parcourir nos articles ou de nous envoyer un message via la page contact."
+  ]
+};
+
+// Chatbot UI Functions
+function toggleChatbot() {
+  const window = document.getElementById('chatbotWindow');
+  const button = document.getElementById('chatbotButton');
+  
+  if (window.style.display === 'flex') {
+    window.style.display = 'none';
+    button.innerHTML = '🤖';
+  } else {
+    window.style.display = 'flex';
+    button.innerHTML = '❌';
+    addBotMessage("Bonjour ! 👋 Je suis l'assistant IA du site. Comment puis-je t'aider aujourd'hui ?");
+  }
+}
+
+function closeChatbot() {
+  document.getElementById('chatbotWindow').style.display = 'none';
+  document.getElementById('chatbotButton').innerHTML = '🤖';
+}
+
+function sendMessage() {
+  const input = document.getElementById('chatbotInput');
+  const message = input.value.trim();
+  
+  if (message === '') return;
+  
+  // Add user message
+  addUserMessage(message);
+  input.value = '';
+  
+  // Get bot response
+  setTimeout(() => {
+    const response = getBotResponse(message);
+    addBotMessage(response);
+  }, 500);
+}
+
+function addUserMessage(message) {
+  const messages = document.getElementById('chatbotMessages');
+  const div = document.createElement('div');
+  div.className = 'chatbot-message user';
+  div.textContent = message;
+  messages.appendChild(div);
+  messages.scrollTop = messages.scrollHeight;
+}
+
+function addBotMessage(message) {
+  const messages = document.getElementById('chatbotMessages');
+  const div = document.createElement('div');
+  div.className = 'chatbot-message bot';
+  div.innerHTML = message;
+  messages.appendChild(div);
+  messages.scrollTop = messages.scrollHeight;
+}
+
+function getBotResponse(userMessage) {
+  const lowerMessage = userMessage.toLowerCase();
+  
+  // Check for keywords
+  for (const [category, keywords] of Object.entries(chatbotData)) {
+    if (keywords.some(keyword => lowerMessage.includes(keyword))) {
+      const responses = chatbotResponses[category];
+      return responses[Math.floor(Math.random() * responses.length)];
+    }
+  }
+  
+  // Default response
+  const defaults = chatbotResponses.default;
+  return defaults[Math.floor(Math.random() * defaults.length)];
+}
+
+// Enter key to send
+document.addEventListener('DOMContentLoaded', function() {
+  const input = document.getElementById('chatbotInput');
+  if (input) {
+    input.addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        sendMessage();
+      }
+    });
+  }
+});
