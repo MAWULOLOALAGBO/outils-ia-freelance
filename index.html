@@ -76,5 +76,25 @@
     </div>
   </footer>
 
+  <!-- Chatbot -->
+  <div class="chatbot-container">
+    <button class="chatbot-button" id="chatbotButton" onclick="toggleChatbot()">🤖</button>
+    <div class="chatbot-window" id="chatbotWindow">
+      <div class="chatbot-header">
+        <span>🤖 Assistant IA</span>
+        <button class="chatbot-close" onclick="closeChatbot()">×</button>
+      </div>
+      <div class="chatbot-messages" id="chatbotMessages">
+        <!-- Messages will appear here -->
+      </div>
+      <div class="chatbot-input">
+        <input type="text" id="chatbotInput" placeholder="Pose ta question..." />
+        <button onclick="sendMessage()">Envoyer</button>
+      </div>
+    </div>
+  </div>
+  
+  <script src="script.js"></script>
+
 </body>
 </html>
