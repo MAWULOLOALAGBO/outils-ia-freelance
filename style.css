@@ -1,186 +1,120 @@
-/* ===== RESET & BASE ===== */
-* { margin: 0; padding: 0; box-sizing: border-box; }
+// ===== CHATBOT FUNCTIONALITY =====
 
-body {
-  font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
-  line-height: 1.6;
-  color: #2d3748;
-  background: #f7fafc;
+const chatbotData = {
+  greetings: ["bonjour", "salut", "hello", "hi", "coucou"],
+  tools: ["outil", "ia", "logiciel", "app", "application"],
+  pricing: ["prix", "gratuit", "payant", "coût", "combien"],
+  comparison: ["comparatif", "meilleur", "vs", "versus", "quel choisir"],
+  affiliate: ["affiliation", "commission", "lien", "partenaire"]
+};
+
+const chatbotResponses = {
+  greetings: [
+    "Bonjour ! 👋 Je suis l'assistant IA du site. Comment puis-je t'aider aujourd'hui ?",
+    "Salut ! 🤖 Je suis là pour répondre à tes questions sur les outils IA. Que veux-tu savoir ?",
+    "Coucou ! 👋 Tu cherches un outil IA en particulier ? Je peux t'aider !"
+  ],
+  tools: [
+    "Nous avons testé plus de 10 outils IA gratuits ! Consulte notre article <a href='articles/top-10-outils-ia-gratuits.html'>Top 10 outils IA gratuits</a> pour découvrir les meilleurs.",
+    "Les meilleurs outils IA pour freelances sont ChatGPT, Claude et Gemini. Tu veux un comparatif détaillé ?"
+  ],
+  pricing: [
+    "La plupart des outils que nous recommandons ont une version gratuite ! Check notre article <a href='articles/top-10-outils-ia-gratuits.html'>Top 10 outils IA gratuits</a>.",
+    "Good news : tu peux commencer gratuitement avec la plupart des outils IA. Certains ont des versions premium optionnelles."
+  ],
+  comparison: [
+    "Pour ChatGPT vs Claude vs Gemini, on a fait un comparatif complet ici : <a href='articles/chatgpt-vs-claude-vs-gemini.html'>ChatGPT vs Claude vs Gemini</a>",
+    "Le meilleur outil dépend de tes besoins. Pour la rédaction : Claude. Pour le code : ChatGPT. Pour la recherche : Gemini."
+  ],
+  affiliate: [
+    "Certains liens sur ce site sont affiliés. Cela signifie qu'on peut toucher une commission sans coût supplémentaire pour toi. Ça nous aide à maintenir le site gratuit ! 🙏",
+    "L'affiliation nous permet de continuer à produire du contenu gratuit. Merci de nous soutenir !"
+  ],
+  default: [
+    "Je n'ai pas trouvé de réponse précise dans nos articles. Tu peux consulter notre <a href='index.html'>page d'accueil</a> ou nous <a href='contact.html'>contacter</a> directement !",
+    "Bonne question ! 🤔 Je te recommande de parcourir nos articles ou de nous envoyer un message via la page contact."
+  ]
+};
+
+// Chatbot UI Functions
+function toggleChatbot() {
+  const window = document.getElementById('chatbotWindow');
+  const button = document.getElementById('chatbotButton');
+  
+  if (window.style.display === 'flex') {
+    window.style.display = 'none';
+    button.innerHTML = '🤖';
+  } else {
+    window.style.display = 'flex';
+    button.innerHTML = '❌';
+    addBotMessage("Bonjour ! 👋 Je suis l'assistant IA du site. Comment puis-je t'aider aujourd'hui ?");
+  }
 }
 
-.container {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 0 1.5rem;
+function closeChatbot() {
+  document.getElementById('chatbotWindow').style.display = 'none';
+  document.getElementById('chatbotButton').innerHTML = '🤖';
 }
 
-/* ===== HEADER ===== */
-header {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  padding: 3rem 0;
-  text-align: center;
+function sendMessage() {
+  const input = document.getElementById('chatbotInput');
+  const message = input.value.trim();
+  
+  if (message === '') return;
+  
+  // Add user message
+  addUserMessage(message);
+  input.value = '';
+  
+  // Get bot response
+  setTimeout(() => {
+    const response = getBotResponse(message);
+    addBotMessage(response);
+  }, 500);
 }
 
-header h1 {
-  font-size: 2.2rem;
-  margin-bottom: 0.5rem;
+function addUserMessage(message) {
+  const messages = document.getElementById('chatbotMessages');
+  const div = document.createElement('div');
+  div.className = 'chatbot-message user';
+  div.textContent = message;
+  messages.appendChild(div);
+  messages.scrollTop = messages.scrollHeight;
 }
 
-header p {
-  opacity: 0.9;
-  font-size: 1.1rem;
+function addBotMessage(message) {
+  const messages = document.getElementById('chatbotMessages');
+  const div = document.createElement('div');
+  div.className = 'chatbot-message bot';
+  div.innerHTML = message;
+  messages.appendChild(div);
+  messages.scrollTop = messages.scrollHeight;
 }
 
-/* ===== NAVIGATION ===== */
-nav {
-  background: white;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
-
-nav ul {
-  display: flex;
-  justify-content: center;
-  gap: 2rem;
-  padding: 1rem 0;
-  list-style: none;
-}
-
-nav a {
-  color: #4a5568;
-  text-decoration: none;
-  font-weight: 500;
-  transition: color 0.2s;
-}
-
-nav a:hover {
-  color: #667eea;
-}
-
-/* ===== HERO ===== */
-.hero {
-  padding: 4rem 0;
-  text-align: center;
-  background: white;
-}
-
-.hero h2 {
-  font-size: 1.8rem;
-  margin-bottom: 1rem;
-  color: #1a202c;
-}
-
-.hero p {
-  font-size: 1.1rem;
-  color: #4a5568;
-  margin-bottom: 1.5rem;
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.btn {
-  display: inline-block;
-  background: #667eea;
-  color: white;
-  padding: 0.8rem 2rem;
-  border-radius: 8px;
-  text-decoration: none;
-  font-weight: 600;
-  transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
-}
-
-/* ===== SECTIONS ===== */
-.section {
-  padding: 3rem 0;
-}
-
-.section h3 {
-  text-align: center;
-  font-size: 1.5rem;
-  margin-bottom: 2rem;
-  color: #1a202c;
-}
-
-/* ===== GRID & CARDS ===== */
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.5rem;
-}
-
-.card {
-  background: white;
-  padding: 1.5rem;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-  transition: transform 0.2s;
-}
-
-.card:hover {
-  transform: translateY(-4px);
-}
-
-.card h4 {
-  font-size: 1.2rem;
-  margin-bottom: 0.8rem;
-  color: #1a202c;
-}
-
-.card p {
-  color: #4a5568;
-  margin-bottom: 1rem;
-  font-size: 0.95rem;
-}
-
-.card a {
-  color: #667eea;
-  text-decoration: none;
-  font-weight: 500;
-}
-
-.card a:hover {
-  text-decoration: underline;
-}
-
-/* ===== FOOTER ===== */
-footer {
-  background: #1a202c;
-  color: #cbd5e0;
-  padding: 2.5rem 0;
-  text-align: center;
-  margin-top: 3rem;
-}
-
-footer p {
-  margin-bottom: 0.5rem;
-}
-
-footer small {
-  opacity: 0.7;
-}
-
-/* ===== MOBILE ===== */
-@media (max-width: 768px) {
-  nav ul {
-    flex-wrap: wrap;
-    gap: 1rem;
-    font-size: 0.9rem;
+function getBotResponse(userMessage) {
+  const lowerMessage = userMessage.toLowerCase();
+  
+  // Check for keywords
+  for (const [category, keywords] of Object.entries(chatbotData)) {
+    if (keywords.some(keyword => lowerMessage.includes(keyword))) {
+      const responses = chatbotResponses[category];
+      return responses[Math.floor(Math.random() * responses.length)];
+    }
   }
   
-  header h1 {
-    font-size: 1.8rem;
-  }
-  
-  .hero h2 {
-    font-size: 1.4rem;
-  }
+  // Default response
+  const defaults = chatbotResponses.default;
+  return defaults[Math.floor(Math.random() * defaults.length)];
 }
+
+// Enter key to send
+document.addEventListener('DOMContentLoaded', function() {
+  const input = document.getElementById('chatbotInput');
+  if (input) {
+    input.addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        sendMessage();
+      }
+    });
+  }
+});
