@@ -974,7 +974,137 @@ footer a:hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 15px rgba(0, 212, 170, 0.4);
 }
+/* ===== CORRECTION FINALE DESIGN ===== */
 
+/* Force le fond sombre sur TOUS les articles */
+.article-page {
+  background: var(--bg-primary) !important;
+}
+
+.article-page main,
+.article-page article,
+.article-page section,
+.article-page div {
+  background: transparent !important;
+}
+
+/* Texte blanc partout */
+.article-page h1,
+.article-page h2,
+.article-page h3,
+.article-page h4,
+.article-page p,
+.article-page li,
+.article-page span,
+.article-page strong {
+  color: #ffffff !important;
+}
+
+/* Éléments spécifiques */
+.toc,
+.faq,
+.comparison-table table,
+.intro,
+.affiliate-disclosure,
+.card {
+  background: var(--bg-card) !important;
+  border: 1px solid var(--border-color) !important;
+}
+
+/* Sommaire - grille */
+.toc ul {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+.toc li {
+  background: var(--bg-secondary) !important;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+/* Liste à puces */
+.article-page ul li,
+.article-page ol li {
+  color: #f1f5f9 !important;
+  margin-bottom: 0.8rem;
+}
+
+/* Liens */
+.article-page a {
+  color: var(--accent-primary) !important;
+}
+
+/* Tableaux */
+.comparison-table th {
+  background: var(--bg-secondary) !important;
+  color: white !important;
+}
+
+.comparison-table td {
+  background: var(--bg-card) !important;
+  color: #f1f5f9 !important;
+}
+
+/* Intro box */
+.intro {
+  background: var(--bg-card) !important;
+  color: #f1f5f9 !important;
+  border-left: 4px solid var(--accent-primary) !important;
+}
+
+/* FAQ */
+.faq {
+  background: var(--bg-card) !important;
+  color: #f1f5f9 !important;
+}
+
+.faq-item h3 {
+  color: var(--accent-primary) !important;
+}
+
+.faq-item p {
+  color: #cbd5e1 !important;
+}
+
+/* Conclusion */
+.conclusion {
+  background: var(--accent-gradient) !important;
+  color: white !important;
+}
+
+/* Supprime TOUS les fonds blancs accidentels */
+body *,
+main *,
+article *,
+section *,
+div * {
+  background-color: initial !important;
+}
+
+/* Remet les fonds où il faut */
+body,
+main,
+.article-page,
+.toc,
+.faq,
+.comparison-table,
+.comparison-table table,
+.intro,
+.affiliate-disclosure,
+.card {
+  background-color: var(--bg-primary) !important;
+}
+
+.toc,
+.faq,
+.comparison-table table,
+.card,
+.intro,
+.affiliate-disclosure {
+  background-color: var(--bg-card) !important;
+}
 
 /* ===== ANIMATIONS ===== */
 @keyframes fadeIn {
