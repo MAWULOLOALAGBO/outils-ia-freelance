@@ -433,94 +433,157 @@ footer a:hover {
   box-shadow: var(--shadow-sm);
 }
 
-/* ===== TABLE OF CONTENTS ===== */
+/* ===== TABLE OF CONTENTS AMÉLIORÉE ===== */
 .toc {
-  background: var(--bg-card);
-  padding: 2rem;
-  border-radius: 12px;
-  margin-bottom: 3rem;
-  border: 1px solid var(--border-color);
-  box-shadow: var(--shadow-sm);
+  background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-secondary) 100%);
+  padding: 3rem;
+  border-radius: 20px;
+  margin: 4rem 0;
+  border: 2px solid var(--border-color);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(0, 212, 170, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.toc::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--accent-gradient);
+  box-shadow: 0 0 20px rgba(0, 212, 170, 0.5);
 }
 
 .toc h2 {
-  font-size: 1.3rem;
-  margin-bottom: 1.5rem;
+  font-size: 1.8rem;
+  margin-bottom: 2.5rem;
   color: var(--text-primary);
-  font-weight: 700;
+  font-weight: 800;
+  padding-left: 1.5rem;
+  border-left: 5px solid var(--accent-primary);
+  position: relative;
+}
+
+.toc h2::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 1.5rem;
+  width: 40px;
+  height: 3px;
+  background: var(--accent-gradient);
+  border-radius: 2px;
 }
 
 .toc ul {
   list-style: none;
   counter-reset: toc-counter;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  padding: 1rem 0;
 }
 
 .toc li {
-  margin-bottom: 1rem;
+  margin-bottom: 0;
   counter-increment: toc-counter;
+  position: relative;
+  padding: 1.2rem 1.5rem;
+  background: rgba(30, 41, 59, 0.5);
+  border-radius: 12px;
+  border: 1px solid rgba(51, 65, 85, 0.5);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .toc li::before {
-  content: counter(toc-counter) '. ';
-  color: var(--accent-primary);
-  font-weight: 700;
+  content: counter(toc-counter);
+  position: absolute;
+  left: 1.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 35px;
+  height: 35px;
+  background: var(--accent-gradient);
+  color: white;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 1rem;
+  box-shadow: 0 4px 15px rgba(0, 212, 170, 0.3);
+}
+
+.toc li:hover {
+  background: rgba(30, 41, 59, 0.8);
+  border-color: var(--accent-primary);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 212, 170, 0.2);
 }
 
 .toc a {
   color: var(--text-secondary);
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
+  padding-left: 3.5rem;
+  display: block;
+  font-weight: 600;
+  font-size: 1rem;
+  text-decoration: none;
 }
 
 .toc a:hover {
   color: var(--accent-primary);
-  padding-left: 0.5rem;
+  padding-left: 3.8rem;
 }
 
-/* ===== ARTICLE CONTENT ===== */
-.article-page h2 {
-  font-size: 1.8rem;
-  color: var(--text-primary);
-  margin: 3.5rem 0 1.5rem 0;
-  padding-top: 1rem;
-  font-weight: 700;
-  position: relative;
-}
-
-.article-page h2::before {
-  content: '';
+.toc a::after {
+  content: '→';
   position: absolute;
-  left: 0;
-  top: 0;
-  width: 4px;
-  height: 100%;
-  background: var(--accent-gradient);
-  border-radius: 2px;
+  right: 1.5rem;
+  opacity: 0;
+  transition: all 0.3s ease;
+  color: var(--accent-primary);
 }
 
-.article-page h3 {
-  font-size: 1.4rem;
-  color: var(--text-primary);
-  margin: 2.5rem 0 1rem 0;
-  font-weight: 600;
+.toc li:hover a::after {
+  opacity: 1;
+  right: 1.2rem;
 }
 
-.article-page p {
-  line-height: 1.9;
-  color: var(--text-secondary);
-  margin-bottom: 1.5rem;
-  font-size: 1.05rem;
-}
-
-.article-page ul,
-.article-page ol {
-  margin: 2rem 0;
-  padding-left: 2.5rem;
-  color: var(--text-secondary);
-}
-
-.article-page li {
-  margin-bottom: 1rem;
-  line-height: 1.8;
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .toc {
+    padding: 2rem 1.5rem;
+    margin: 3rem 0;
+  }
+  
+  .toc ul {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .toc h2 {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  
+  .toc li {
+    padding: 1rem 1.2rem;
+  }
+  
+  .toc li::before {
+    width: 30px;
+    height: 30px;
+    font-size: 0.9rem;
+    left: 1.2rem;
+  }
+  
+  .toc a {
+    padding-left: 3.2rem;
+    font-size: 0.95rem;
+  }
 }
 
 /* ===== COMPARISON TABLE ===== */
