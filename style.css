@@ -975,6 +975,48 @@ footer a:hover {
   box-shadow: 0 4px 15px rgba(0, 212, 170, 0.4);
 }
 
+/* ===== FORCE DARK THEME PARTOUT ===== */
+.article-page,
+.article-page main,
+.article-page section,
+.article-page article,
+.article-page div,
+body {
+  background: var(--bg-primary) !important;
+}
+
+/* Force le texte foncé sur les éléments qui auraient fond clair */
+.comparison-table table,
+.comparison-table th,
+.comparison-table td,
+.faq,
+.toc,
+.card,
+.intro,
+.affiliate-disclosure,
+.conclusion {
+  background: var(--bg-card) !important;
+}
+
+/* Assure que le texte est lisible */
+.article-page p,
+.article-page li,
+.article-page span,
+.article-page div,
+.faq-item p,
+.faq-item h3,
+.comparison-table td,
+.comparison-table th {
+  color: var(--text-primary) !important;
+}
+
+/* Supprime les fonds blancs accidentels */
+main,
+main section,
+main div {
+  background: transparent !important;
+}
+
 /* ===== ANIMATIONS ===== */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(10px); }
