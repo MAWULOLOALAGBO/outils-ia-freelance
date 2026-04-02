@@ -975,6 +975,48 @@ footer a:hover {
   box-shadow: 0 4px 15px rgba(0, 212, 170, 0.4);
 }
 
+/* ===== FORCE TEXTE CLAIR SUR ARTICLES ===== */
+.article-page h1,
+.article-page h2,
+.article-page h3,
+.article-page h4,
+.article-page p,
+.article-page li,
+.article-page span,
+.article-page strong,
+.article-page b,
+.article-page em,
+.article-page a,
+.toc h2,
+.toc a,
+.faq h2,
+.faq h3,
+.faq p,
+.comparison-table th,
+.comparison-table td,
+.intro,
+.affiliate-disclosure {
+  color: #f1f5f9 !important;
+}
+
+/* Liens en couleur accent */
+.article-page a {
+  color: var(--accent-primary) !important;
+}
+
+/* Titres en blanc pur */
+.article-page h1,
+.article-page h2,
+.article-page h3 {
+  color: #ffffff !important;
+}
+
+/* Texte secondaire (moins important) */
+.article-meta,
+.article-meta span {
+  color: #94a3b8 !important;
+}
+
 /* ===== ANIMATIONS ===== */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(10px); }
