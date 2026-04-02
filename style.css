@@ -1106,6 +1106,78 @@ main,
   background-color: var(--bg-card) !important;
 }
 
+/* ===== CORRECTION CHATBOT TRANSPARENT ===== */
+
+.chatbot-window {
+  background: var(--bg-card) !important;
+  backdrop-filter: none !important;
+  opacity: 1 !important;
+}
+
+.chatbot-header {
+  background: var(--accent-gradient) !important;
+  opacity: 1 !important;
+}
+
+.chatbot-messages {
+  background: var(--bg-primary) !important;
+  opacity: 1 !important;
+}
+
+.chatbot-input {
+  background: var(--bg-card) !important;
+  opacity: 1 !important;
+  border-top: 1px solid var(--border-color) !important;
+}
+
+.chatbot-message.bot {
+  background: var(--bg-secondary) !important;
+  color: var(--text-primary) !important;
+  border: 1px solid var(--border-color) !important;
+}
+
+.chatbot-message.user {
+  background: var(--accent-gradient) !important;
+  color: white !important;
+}
+
+.chatbot-input input {
+  background: var(--bg-primary) !important;
+  color: var(--text-primary) !important;
+  border: 1px solid var(--border-color) !important;
+}
+
+.chatbot-input input::placeholder {
+  color: var(--text-secondary) !important;
+}
+
+.chatbot-quick-reply {
+  background: var(--bg-secondary) !important;
+  color: var(--accent-primary) !important;
+  border: 1px solid var(--border-color) !important;
+}
+
+/* Supprime toute transparence résiduelle */
+.chatbot-window,
+.chatbot-window *,
+.chatbot-messages,
+.chatbot-input {
+  background-color: rgba(0, 0, 0, 0) !important;
+}
+
+/* Remet les bons fonds */
+.chatbot-window {
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%) !important;
+}
+
+.chatbot-messages {
+  background: #0a0e1a !important;
+}
+
+.chatbot-input {
+  background: #1e293b !important;
+}
+
 /* ===== ANIMATIONS ===== */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(10px); }
