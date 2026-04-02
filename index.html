@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="description" content="Guides et comparatifs des meilleurs outils IA pour freelances et auto-entrepreneurs">
+  <meta name="description" content="Guides et comparatifs des meilleurs outils IA pour freelances et auto-entrepreneurs. Gagne en productivité avec l'IA.">
+  <meta name="keywords" content="outils IA, freelance, productivité, ChatGPT, IA générative, automatisation">
   <title>Outils IA Freelance - Guides & Comparatifs 2026</title>
   <link rel="stylesheet" href="style.css" />
 </head>
@@ -39,7 +40,7 @@
       </div>
     </section>
 
-    <!-- Catégories -->
+    <!-- Section Comparatifs -->
     <section id="comparatifs" class="section">
       <div class="container">
         <h3>🔥 Derniers comparatifs</h3>
@@ -55,10 +56,98 @@
             <a href="articles/chatgpt-vs-claude-vs-gemini.html">Lire →</a>
           </article>
           <article class="card">
+            <h4>Midjourney vs DALL-E 3</h4>
+            <p>Quelle IA choisir pour générer des images ?</p>
+            <a href="articles/midjourney-vs-dalle3.html">Lire →</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section Guides -->
+    <section id="guides" class="section">
+      <div class="container">
+        <h3>📚 Guides pratiques</h3>
+        <div class="grid">
+          <article class="card">
             <h4>IA pour rédiger des emails</h4>
             <p>Gagne 2h par jour sur ta communication pro...</p>
             <a href="articles/ia-pour-rediger-emails.html">Lire →</a>
           </article>
+          <article class="card">
+            <h4>Automatiser sa facturation</h4>
+            <p>Comment gagner 5h par mois sur l'administratif...</p>
+            <a href="articles/automatiser-facturation-ia.html">Lire →</a>
+          </article>
+          <article class="card">
+            <h4>IA et SEO : optimiser ses articles</h4>
+            <p>La méthode complète pour ranker sur Google...</p>
+            <a href="articles/ia-seo-optimiser-articles.html">Lire →</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section Avis & Tests -->
+    <section id="avis" class="section">
+      <div class="container">
+        <h3>⭐ Avis & Tests</h3>
+        <div class="grid">
+          <article class="card">
+            <h4>Notion AI : test complet</h4>
+            <p>Vaut-il vraiment 10$/mois pour les freelances ?</p>
+            <a href="articles/notion-ai-test-complet.html">Lire →</a>
+          </article>
+          <article class="card">
+            <h4>IA pour créer des logos</h4>
+            <p>Top 5 des générateurs de logos gratuits...</p>
+            <a href="articles/ia-creer-logos-gratuits.html">Lire →</a>
+          </article>
+          <article class="card">
+            <h4>Détecter un texte écrit par IA</h4>
+            <p>Les meilleurs outils gratuits testés...</p>
+            <a href="articles/detecter-texte-ia-outils.html">Lire →</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section À Propos -->
+    <section id="about" class="section">
+      <div class="container">
+        <h3>🎯 À propos</h3>
+        <div class="card" style="max-width: 800px; margin: 0 auto; text-align: center;">
+          <h4>Bienvenue sur Outils IA Freelance</h4>
+          <p style="margin: 1.5rem 0; line-height: 1.8;">
+            Ce site est dédié aux freelances et auto-entrepreneurs qui veulent <strong>gagner en productivité</strong> grâce à l'intelligence artificielle. 
+            <br><br>
+            Tous nos articles sont <strong>testés et comparés</strong> en conditions réelles. Pas de théorie, que du pratique !
+            <br><br>
+            <strong>Notre mission :</strong> T'aider à choisir les bons outils, sans perdre de temps ni d'argent.
+          </p>
+          <p style="color: var(--text-secondary); font-size: 0.9rem;">
+            📧 Une question ? <a href="contact.html">Contacte-nous</a>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section Stats -->
+    <section class="section" style="background: var(--bg-secondary);">
+      <div class="container">
+        <div class="grid" style="text-align: center;">
+          <div class="card">
+            <h4 style="font-size: 2.5rem; color: var(--accent-primary);">10+</h4>
+            <p>Guides publiés</p>
+          </div>
+          <div class="card">
+            <h4 style="font-size: 2.5rem; color: var(--accent-primary);">50+</h4>
+            <p>Outils testés</p>
+          </div>
+          <div class="card">
+            <h4 style="font-size: 2.5rem; color: var(--accent-primary);">100%</h4>
+            <p>Gratuit & Indépendant</p>
+          </div>
         </div>
       </div>
     </section>
@@ -73,6 +162,9 @@
         <a href="confidentialite.html">Confidentialité</a> | 
         <a href="contact.html">Contact</a>
       </p>
+      <p style="margin-top: 1rem; font-size: 0.85rem; opacity: 0.7;">
+        Site hébergé gratuitement sur GitHub Pages
+      </p>
     </div>
   </footer>
 
@@ -85,7 +177,6 @@
         <button class="chatbot-close" onclick="closeChatbot()">×</button>
       </div>
       <div class="chatbot-messages" id="chatbotMessages">
-        <!-- Messages will appear here -->
       </div>
       <div class="chatbot-input">
         <input type="text" id="chatbotInput" placeholder="Pose ta question..." />
@@ -93,8 +184,7 @@
       </div>
     </div>
   </div>
-  
-  <script src="script.js"></script>
 
+  <script src="script.js"></script>
 </body>
 </html>
