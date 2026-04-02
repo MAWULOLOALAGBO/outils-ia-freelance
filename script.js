@@ -1,5 +1,16 @@
 // ===== CHATBOT INTELLIGENT =====
 
+// Détecter le chemin de base selon la page courante
+function getBasePath() {
+  const currentPath = window.location.pathname;
+  // Si on est dans le dossier articles/, remonter d'un niveau
+  if (currentPath.includes('/articles/')) {
+    return '../';
+  }
+  // Sinon, on est à la racine
+  return '';
+}
+
 const chatbotData = {
   articles: [
     {
@@ -144,6 +155,12 @@ const chatbotData = {
   }
 };
 
+// Fonction pour obtenir le lien corrigé
+function getArticleUrl(baseUrl) {
+  const basePath = getBasePath();
+  return basePath + baseUrl;
+}
+
 // Chatbot UI Functions
 function toggleChatbot() {
   const chatbotWindow = document.getElementById('chatbotWindow');
@@ -221,21 +238,21 @@ function handleQuickReply(text, index) {
 
 function getQuickReplyResponse(index) {
   const responses = {
-    0: "Voici notre guide sur les <strong>meilleurs outils IA gratuits</strong> :<br><br><a href='articles/top-10-outils-ia-gratuits.html' target='_blank'>👉 Top 10 outils IA gratuits</a><br><br>C'est le point de départ idéal pour découvrir l'IA sans dépenser un euro !",
+    0: "Voici notre guide sur les <strong>meilleurs outils IA gratuits</strong> :<br><br><a href='" + getArticleUrl('articles/top-10-outils-ia-gratuits.html') + "' target='_blank'>👉 Top 10 outils IA gratuits</a><br><br>C'est le point de départ idéal pour découvrir l'IA sans dépenser un euro !",
     
-    1: "Pour rédiger des emails plus vite, consulte notre guide complet :<br><br><a href='articles/ia-pour-rediger-emails.html' target='_blank'>👉 IA pour rédiger des emails</a><br><br>Tu y trouveras des templates prêts à l'emploi et des prompts ChatGPT !",
+    1: "Pour rédiger des emails plus vite, consulte notre guide complet :<br><br><a href='" + getArticleUrl('articles/ia-pour-rediger-emails.html') + "' target='_blank'>👉 IA pour rédiger des emails</a><br><br>Tu y trouveras des templates prêts à l'emploi et des prompts ChatGPT !",
     
-    2: "Automatise ta facturation et gagne 5h par mois :<br><br><a href='articles/automatiser-facturation-ia.html' target='_blank'>👉 Automatiser sa facturation avec l'IA</a><br><br>On compare les meilleurs outils de facturation automatique.",
+    2: "Automatise ta facturation et gagne 5h par mois :<br><br><a href='" + getArticleUrl('articles/automatiser-facturation-ia.html') + "' target='_blank'>👉 Automatiser sa facturation avec l'IA</a><br><br>On compare les meilleurs outils de facturation automatique.",
     
-    3: "Crée un logo pro gratuitement avec l'IA :<br><br><a href='articles/ia-creer-logos-gratuits.html' target='_blank'>👉 Top 5 des IA pour créer des logos</a><br><br>Plus besoin de designer pour ton identité visuelle !",
+    3: "Crée un logo pro gratuitement avec l'IA :<br><br><a href='" + getArticleUrl('articles/ia-creer-logos-gratuits.html') + "' target='_blank'>👉 Top 5 des IA pour créer des logos</a><br><br>Plus besoin de designer pour ton identité visuelle !",
     
-    4: "ChatGPT, Claude ou Gemini ? Voici notre comparatif complet :<br><br><a href='articles/chatgpt-vs-claude-vs-gemini.html' target='_blank'>👉 ChatGPT vs Claude vs Gemini</a><br><br>On teste les 3 pour t'aider à choisir.",
+    4: "ChatGPT, Claude ou Gemini ? Voici notre comparatif complet :<br><br><a href='" + getArticleUrl('articles/chatgpt-vs-claude-vs-gemini.html') + "' target='_blank'>👉 ChatGPT vs Claude vs Gemini</a><br><br>On teste les 3 pour t'aider à choisir.",
     
-    5: "Booste ton SEO avec l'IA :<br><br><a href='articles/ia-seo-optimiser-articles.html' target='_blank'>👉 IA et SEO : Guide complet</a><br><br>La méthode exacte pour ranker sur Google avec l'IA.",
+    5: "Booste ton SEO avec l'IA :<br><br><a href='" + getArticleUrl('articles/ia-seo-optimiser-articles.html') + "' target='_blank'>👉 IA et SEO : Guide complet</a><br><br>La méthode exacte pour ranker sur Google avec l'IA.",
     
-    6: "Génère des images pro avec l'IA :<br><br><a href='articles/midjourney-vs-dalle3.html' target='_blank'>👉 Midjourney vs DALL-E 3</a><br><br>Le comparatif des 2 meilleures IA pour les images.",
+    6: "Génère des images pro avec l'IA :<br><br><a href='" + getArticleUrl('articles/midjourney-vs-dalle3.html') + "' target='_blank'>👉 Midjourney vs DALL-E 3</a><br><br>Le comparatif des 2 meilleures IA pour les images.",
     
-    7: "Voici tous nos guides disponibles :<br><br>" + chatbotData.articles.map((article, i) => `${i+1}. <a href='${article.url}' target='_blank'>${article.title}</a>`).join('<br>') + "<br><br>Tu as l'embarras du choix ! 😊"
+    7: "Voici tous nos guides disponibles :<br><br>" + chatbotData.articles.map((article, i) => `${i+1}. <a href='${getArticleUrl(article.url)}' target='_blank'>${article.title}</a>`).join('<br>') + "<br><br>Tu as l'embarras du choix ! 😊"
   };
   
   return responses[index] || responses.default;
@@ -288,64 +305,64 @@ function getBotResponse(userMessage) {
   // Check for specific article keywords
   for (const article of chatbotData.articles) {
     if (article.keywords.some(keyword => lowerMessage.includes(keyword))) {
-      return `📚 J'ai trouvé un article qui devrait t'intéresser :<br><br><strong>${article.title}</strong><br><em>${article.description}</em><br><br><a href='${article.url}' target='_blank'>👉 Lire l'article</a><br><br>Je peux aussi te montrer d'autres articles si tu veux !`;
+      return `📚 J'ai trouvé un article qui devrait t'intéresser :<br><br><strong>${article.title}</strong><br><em>${article.description}</em><br><br><a href='${getArticleUrl(article.url)}' target='_blank'>👉 Lire l'article</a><br><br>Je peux aussi te montrer d'autres articles si tu veux !`;
     }
   }
   
   // Check for categories
   if (lowerMessage.includes('gratuit') || lowerMessage.includes('prix') || lowerMessage.includes('payant') || lowerMessage.includes('coût')) {
     return chatbotData.responses.pricing[Math.floor(Math.random() * chatbotData.responses.pricing.length)] + 
-           "<br><br><a href='articles/top-10-outils-ia-gratuits.html' target='_blank'>👉 Top 10 outils IA gratuits</a>";
+           "<br><br><a href='" + getArticleUrl('articles/top-10-outils-ia-gratuits.html') + "' target='_blank'>👉 Top 10 outils IA gratuits</a>";
   }
   
   if (lowerMessage.includes('email') || lowerMessage.includes('mail') || lowerMessage.includes('communication')) {
     return chatbotData.responses.email[Math.floor(Math.random() * chatbotData.responses.email.length)] + 
-           "<br><br><a href='articles/ia-pour-rediger-emails.html' target='_blank'>👉 Guide complet emails</a>";
+           "<br><br><a href='" + getArticleUrl('articles/ia-pour-rediger-emails.html') + "' target='_blank'>👉 Guide complet emails</a>";
   }
   
   if (lowerMessage.includes('factur') || lowerMessage.includes('administratif') || lowerMessage.includes('paiement')) {
     return chatbotData.responses.billing[Math.floor(Math.random() * chatbotData.responses.billing.length)] + 
-           "<br><br><a href='articles/automatiser-facturation-ia.html' target='_blank'>👉 Automatiser facturation</a>";
+           "<br><br><a href='" + getArticleUrl('articles/automatiser-facturation-ia.html') + "' target='_blank'>👉 Automatiser facturation</a>";
   }
   
   if (lowerMessage.includes('logo') || lowerMessage.includes('design') || lowerMessage.includes('graphisme')) {
     return chatbotData.responses.logo[Math.floor(Math.random() * chatbotData.responses.logo.length)] + 
-           "<br><br><a href='articles/ia-creer-logos-gratuits.html' target='_blank'>👉 Créer un logo avec l'IA</a>";
+           "<br><br><a href='" + getArticleUrl('articles/ia-creer-logos-gratuits.html') + "' target='_blank'>👉 Créer un logo avec l'IA</a>";
   }
   
   if (lowerMessage.includes('seo') || lowerMessage.includes('google') || lowerMessage.includes('ranking')) {
     return chatbotData.responses.seo[Math.floor(Math.random() * chatbotData.responses.seo.length)] + 
-           "<br><br><a href='articles/ia-seo-optimiser-articles.html' target='_blank'>👉 Optimiser SEO avec l'IA</a>";
+           "<br><br><a href='" + getArticleUrl('articles/ia-seo-optimiser-articles.html') + "' target='_blank'>👉 Optimiser SEO avec l'IA</a>";
   }
   
   if (lowerMessage.includes('image') || lowerMessage.includes('visuel') || lowerMessage.includes('midjourney') || lowerMessage.includes('dall')) {
     return chatbotData.responses.images[Math.floor(Math.random() * chatbotData.responses.images.length)] + 
-           "<br><br><a href='articles/midjourney-vs-dalle3.html' target='_blank'>👉 Midjourney vs DALL-E 3</a>";
+           "<br><br><a href='" + getArticleUrl('articles/midjourney-vs-dalle3.html') + "' target='_blank'>👉 Midjourney vs DALL-E 3</a>";
   }
   
   if (lowerMessage.includes('chatgpt') || lowerMessage.includes('claude') || lowerMessage.includes('gemini') || lowerMessage.includes('comparatif')) {
     return chatbotData.responses.comparison[Math.floor(Math.random() * chatbotData.responses.comparison.length)] + 
-           "<br><br><a href='articles/chatgpt-vs-claude-vs-gemini.html' target='_blank'>👉 Comparatif complet</a>";
+           "<br><br><a href='" + getArticleUrl('articles/chatgpt-vs-claude-vs-gemini.html') + "' target='_blank'>👉 Comparatif complet</a>";
   }
   
   if (lowerMessage.includes('débutant') || lowerMessage.includes('commencer') || lowerMessage.includes('bien démarrer')) {
     return chatbotData.responses.beginner[Math.floor(Math.random() * chatbotData.responses.beginner.length)] + 
-           "<br><br><a href='articles/top-10-outils-ia-gratuits.html' target='_blank'>👉 Top 10 outils gratuits</a><br>" +
-           "<a href='articles/ia-generative-erreurs-debutant.html' target='_blank'>👉 Erreurs à éviter</a>";
+           "<br><br><a href='" + getArticleUrl('articles/top-10-outils-ia-gratuits.html') + "' target='_blank'>👉 Top 10 outils gratuits</a><br>" +
+           "<a href='" + getArticleUrl('articles/ia-generative-erreurs-debutant.html') + "' target='_blank'>👉 Erreurs à éviter</a>";
   }
   
   if (lowerMessage.includes('outil') || lowerMessage.includes('ia') || lowerMessage.includes('logiciel')) {
     return chatbotData.responses.tools[Math.floor(Math.random() * chatbotData.responses.tools.length)] + 
-           "<br><br><a href='articles/top-10-outils-ia-gratuits.html' target='_blank'>👉 Top 10 outils gratuits</a><br>" +
-           "<a href='articles/chatgpt-vs-claude-vs-gemini.html' target='_blank'>👉 Comparatif ChatGPT/Claude/Gemini</a>";
+           "<br><br><a href='" + getArticleUrl('articles/top-10-outils-ia-gratuits.html') + "' target='_blank'>👉 Top 10 outils gratuits</a><br>" +
+           "<a href='" + getArticleUrl('articles/chatgpt-vs-claude-vs-gemini.html') + "' target='_blank'>👉 Comparatif ChatGPT/Claude/Gemini</a>";
   }
   
   // Default response with article suggestions
   return chatbotData.responses.default[Math.floor(Math.random() * chatbotData.responses.default.length)] + 
          "<br><br>💡 Voici nos articles les plus populaires :<br>" +
-         "1. <a href='articles/top-10-outils-ia-gratuits.html' target='_blank'>Top 10 outils IA gratuits</a><br>" +
-         "2. <a href='articles/chatgpt-vs-claude-vs-gemini.html' target='_blank'>ChatGPT vs Claude vs Gemini</a><br>" +
-         "3. <a href='articles/ia-pour-rediger-emails.html' target='_blank'>IA pour rédiger des emails</a><br><br>" +
+         "1. <a href='" + getArticleUrl('articles/top-10-outils-ia-gratuits.html') + "' target='_blank'>Top 10 outils IA gratuits</a><br>" +
+         "2. <a href='" + getArticleUrl('articles/chatgpt-vs-claude-vs-gemini.html') + "' target='_blank'>ChatGPT vs Claude vs Gemini</a><br>" +
+         "3. <a href='" + getArticleUrl('articles/ia-pour-rediger-emails.html') + "' target='_blank'>IA pour rédiger des emails</a><br><br>" +
          "Ou pose-moi une question spécifique !";
 }
 
