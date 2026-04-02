@@ -3,11 +3,9 @@
 // Détecter le chemin de base selon la page courante
 function getBasePath() {
   const currentPath = window.location.pathname;
-  // Si on est dans le dossier articles/, remonter d'un niveau
   if (currentPath.includes('/articles/')) {
     return '../';
   }
-  // Sinon, on est à la racine
   return '';
 }
 
@@ -72,13 +70,43 @@ const chatbotData = {
       url: "articles/ia-generative-erreurs-debutant.html",
       keywords: ["erreurs", "débutant", "conseils", "bien commencer", "pièges"],
       description: "10 erreurs à éviter quand on débute avec l'IA"
+    },
+    {
+      title: "Gagner de l'argent avec l'IA",
+      url: "articles/gagner-argent-ia-freelance.html",
+      keywords: ["argent", "revenus", "monétiser", "gagner", "business"],
+      description: "10 méthodes pour gagner de l'argent avec l'IA"
+    },
+    {
+      title: "Extensions Chrome IA",
+      url: "articles/extensions-chrome-ia-freelance.html",
+      keywords: ["extensions", "chrome", "navigateur", "productivité"],
+      description: "Top 10 des extensions Chrome IA pour freelances"
+    },
+    {
+      title: "Outils IA par métier",
+      url: "articles/meilleurs-outils-ia-par-metier.html",
+      keywords: ["métier", "profession", "rédacteur", "designer", "développeur"],
+      description: "Les meilleurs outils IA pour chaque métier de freelance"
+    },
+    {
+      title: "IA gratuit vs payant",
+      url: "articles/ia-gratuit-vs-payant.html",
+      keywords: ["gratuit", "payant", "prix", "comparatif", "vaut le coup"],
+      description: "Faut-il vraiment payer pour les outils IA en 2026 ?"
+    },
+    {
+      title: "50 prompts ChatGPT",
+      url: "articles/prompts-chatgpt-freelance.html",
+      keywords: ["prompts", "chatgpt", "templates", "copier coller"],
+      description: "50 prompts ChatGPT prêts à l'emploi pour freelances"
     }
   ],
   
   quickReplies: [
     "🎯 Meilleurs outils gratuits",
     "📧 Rédiger des emails",
-    "💰 Automatiser facturation",
+    "💰 Gagner de l'argent",
     "🎨 Créer un logo",
     "📊 Comparatif ChatGPT/Claude",
     "🔍 Optimiser SEO",
@@ -147,6 +175,18 @@ const chatbotData = {
       "Pour bien démarrer avec l'IA, voici nos recommandations :"
     ],
     
+    money: [
+      "Voici comment gagner de l'argent avec l'IA :",
+      "On a testé 10 méthodes de monétisation. Voici les meilleures :",
+      "L'IA peut vraiment générer des revenus. Voici comment :"
+    ],
+    
+    prompts: [
+      "On a préparé 50 prompts prêts à l'emploi pour toi :",
+      "Voici nos meilleurs prompts ChatGPT pour freelances :",
+      "Copie-colle ces prompts et gagne du temps :"
+    ],
+    
     default: [
       "Je n'ai pas trouvé de réponse précise. Tu peux :",
       "Bonne question ! Voici ce que je te suggère :",
@@ -183,20 +223,15 @@ function closeChatbot() {
 
 function showWelcomeMessage() {
   const messages = document.getElementById('chatbotMessages');
-  
-  // Clear previous messages
   messages.innerHTML = '';
   
-  // Welcome message
   const welcomeMsg = chatbotData.greeting[Math.floor(Math.random() * chatbotData.greeting.length)];
   addBotMessage(welcomeMsg);
   
-  // Quick replies
   setTimeout(() => {
     showQuickReplies();
   }, 500);
   
-  // Suggestion
   setTimeout(() => {
     addBotMessage("💡 Tu peux aussi me poser des questions directement sur les outils IA, la productivité, ou le SEO !");
   }, 1000);
@@ -220,16 +255,13 @@ function showQuickReplies() {
 }
 
 function handleQuickReply(text, index) {
-  // Remove quick replies
   const existingReplies = document.querySelector('.chatbot-quick-replies');
   if (existingReplies) {
     existingReplies.remove();
   }
   
-  // Add user message
   addUserMessage(text);
   
-  // Process based on quick reply
   setTimeout(() => {
     const responses = getQuickReplyResponse(index);
     addBotMessage(responses);
@@ -242,7 +274,7 @@ function getQuickReplyResponse(index) {
     
     1: "Pour rédiger des emails plus vite, consulte notre guide complet :<br><br><a href='" + getArticleUrl('articles/ia-pour-rediger-emails.html') + "' target='_blank'>👉 IA pour rédiger des emails</a><br><br>Tu y trouveras des templates prêts à l'emploi et des prompts ChatGPT !",
     
-    2: "Automatise ta facturation et gagne 5h par mois :<br><br><a href='" + getArticleUrl('articles/automatiser-facturation-ia.html') + "' target='_blank'>👉 Automatiser sa facturation avec l'IA</a><br><br>On compare les meilleurs outils de facturation automatique.",
+    2: "Découvre comment monétiser l'IA :<br><br><a href='" + getArticleUrl('articles/gagner-argent-ia-freelance.html') + "' target='_blank'>👉 Gagner de l'argent avec l'IA</a><br><br>10 méthodes testées et approuvées !",
     
     3: "Crée un logo pro gratuitement avec l'IA :<br><br><a href='" + getArticleUrl('articles/ia-creer-logos-gratuits.html') + "' target='_blank'>👉 Top 5 des IA pour créer des logos</a><br><br>Plus besoin de designer pour ton identité visuelle !",
     
@@ -252,7 +284,7 @@ function getQuickReplyResponse(index) {
     
     6: "Génère des images pro avec l'IA :<br><br><a href='" + getArticleUrl('articles/midjourney-vs-dalle3.html') + "' target='_blank'>👉 Midjourney vs DALL-E 3</a><br><br>Le comparatif des 2 meilleures IA pour les images.",
     
-    7: "Voici tous nos guides disponibles :<br><br>" + chatbotData.articles.map((article, i) => `${i+1}. <a href='${getArticleUrl(article.url)}' target='_blank'>${article.title}</a>`).join('<br>') + "<br><br>Tu as l'embarras du choix ! 😊"
+    7: "Voici tous nos guides disponibles (15 articles !) :<br><br>" + chatbotData.articles.map((article, i) => `${i+1}. <a href='${getArticleUrl(article.url)}' target='_blank'>${article.title}</a>`).join('<br>') + "<br><br>Tu as l'embarras du choix ! 😊"
   };
   
   return responses[index] || responses.default;
@@ -264,17 +296,14 @@ function sendMessage() {
   
   if (message === '') return;
   
-  // Remove quick replies if they exist
   const existingReplies = document.querySelector('.chatbot-quick-replies');
   if (existingReplies) {
     existingReplies.remove();
   }
   
-  // Add user message
   addUserMessage(message);
   input.value = '';
   
-  // Get bot response
   setTimeout(() => {
     const response = getBotResponse(message);
     addBotMessage(response);
@@ -302,17 +331,16 @@ function addBotMessage(message) {
 function getBotResponse(userMessage) {
   const lowerMessage = userMessage.toLowerCase();
   
-  // Check for specific article keywords
   for (const article of chatbotData.articles) {
     if (article.keywords.some(keyword => lowerMessage.includes(keyword))) {
       return `📚 J'ai trouvé un article qui devrait t'intéresser :<br><br><strong>${article.title}</strong><br><em>${article.description}</em><br><br><a href='${getArticleUrl(article.url)}' target='_blank'>👉 Lire l'article</a><br><br>Je peux aussi te montrer d'autres articles si tu veux !`;
     }
   }
   
-  // Check for categories
   if (lowerMessage.includes('gratuit') || lowerMessage.includes('prix') || lowerMessage.includes('payant') || lowerMessage.includes('coût')) {
     return chatbotData.responses.pricing[Math.floor(Math.random() * chatbotData.responses.pricing.length)] + 
-           "<br><br><a href='" + getArticleUrl('articles/top-10-outils-ia-gratuits.html') + "' target='_blank'>👉 Top 10 outils IA gratuits</a>";
+           "<br><br><a href='" + getArticleUrl('articles/top-10-outils-ia-gratuits.html') + "' target='_blank'>👉 Top 10 outils IA gratuits</a><br>" +
+           "<a href='" + getArticleUrl('articles/ia-gratuit-vs-payant.html') + "' target='_blank'>👉 IA gratuit vs payant</a>";
   }
   
   if (lowerMessage.includes('email') || lowerMessage.includes('mail') || lowerMessage.includes('communication')) {
@@ -351,13 +379,22 @@ function getBotResponse(userMessage) {
            "<a href='" + getArticleUrl('articles/ia-generative-erreurs-debutant.html') + "' target='_blank'>👉 Erreurs à éviter</a>";
   }
   
+  if (lowerMessage.includes('argent') || lowerMessage.includes('revenus') || lowerMessage.includes('gagner') || lowerMessage.includes('monétiser')) {
+    return chatbotData.responses.money[Math.floor(Math.random() * chatbotData.responses.money.length)] + 
+           "<br><br><a href='" + getArticleUrl('articles/gagner-argent-ia-freelance.html') + "' target='_blank'>👉 Gagner de l'argent avec l'IA</a>";
+  }
+  
+  if (lowerMessage.includes('prompt') || lowerMessage.includes('template') || lowerMessage.includes('copier')) {
+    return chatbotData.responses.prompts[Math.floor(Math.random() * chatbotData.responses.prompts.length)] + 
+           "<br><br><a href='" + getArticleUrl('articles/prompts-chatgpt-freelance.html') + "' target='_blank'>👉 50 prompts ChatGPT</a>";
+  }
+  
   if (lowerMessage.includes('outil') || lowerMessage.includes('ia') || lowerMessage.includes('logiciel')) {
     return chatbotData.responses.tools[Math.floor(Math.random() * chatbotData.responses.tools.length)] + 
            "<br><br><a href='" + getArticleUrl('articles/top-10-outils-ia-gratuits.html') + "' target='_blank'>👉 Top 10 outils gratuits</a><br>" +
-           "<a href='" + getArticleUrl('articles/chatgpt-vs-claude-vs-gemini.html') + "' target='_blank'>👉 Comparatif ChatGPT/Claude/Gemini</a>";
+           "<a href='" + getArticleUrl('articles/meilleurs-outils-ia-par-metier.html') + "' target='_blank'>👉 Outils par métier</a>";
   }
   
-  // Default response with article suggestions
   return chatbotData.responses.default[Math.floor(Math.random() * chatbotData.responses.default.length)] + 
          "<br><br>💡 Voici nos articles les plus populaires :<br>" +
          "1. <a href='" + getArticleUrl('articles/top-10-outils-ia-gratuits.html') + "' target='_blank'>Top 10 outils IA gratuits</a><br>" +
@@ -366,7 +403,6 @@ function getBotResponse(userMessage) {
          "Ou pose-moi une question spécifique !";
 }
 
-// Enter key to send
 document.addEventListener('DOMContentLoaded', function() {
   const input = document.getElementById('chatbotInput');
   if (input) {
@@ -377,7 +413,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
   
-  // Add scroll effect to nav
   window.addEventListener('scroll', function() {
     const nav = document.querySelector('nav');
     if (nav) {
