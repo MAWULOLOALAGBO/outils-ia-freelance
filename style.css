@@ -1017,6 +1017,89 @@ footer a:hover {
   color: #94a3b8 !important;
 }
 
+/* ===== NUKE LE BLANC PARTOUT ===== */
+.article-page,
+.article-page *,
+.toc,
+.faq,
+.comparison-table,
+.comparison-table table,
+.intro,
+.affiliate-disclosure,
+.conclusion,
+.card,
+main,
+article,
+section {
+  background-color: var(--bg-primary) !important;
+}
+
+/* Force le texte en BLANC partout */
+body,
+.article-page,
+.article-page *,
+.toc *,
+.faq *,
+.comparison-table *,
+.intro *,
+.affiliate-disclosure *,
+.conclusion *,
+.card * {
+  color: #ffffff !important;
+}
+
+/* Exceptions pour les liens */
+.article-page a,
+.toc a:hover {
+  color: var(--accent-primary) !important;
+}
+
+/* Garde le gradient pour la conclusion */
+.conclusion {
+  background: var(--accent-gradient) !important;
+  color: white !important;
+}
+
+.conclusion * {
+  color: white !important;
+}
+
+/* Tableaux - header en couleur */
+.comparison-table th {
+  background: var(--bg-secondary) !important;
+  color: white !important;
+}
+
+.comparison-table td {
+  background: var(--bg-card) !important;
+  color: #f1f5f9 !important;
+  border-color: var(--border-color) !important;
+}
+
+/* FAQ et TOC en fond sombre */
+.faq {
+  background: var(--bg-card) !important;
+  border: 1px solid var(--border-color) !important;
+}
+
+.toc {
+  background: var(--bg-card) !important;
+  border: 1px solid var(--border-color) !important;
+}
+
+/* Intro */
+.intro {
+  background: var(--bg-card) !important;
+  border-left-color: var(--accent-primary) !important;
+}
+
+/* Disclosure */
+.affiliate-disclosure {
+  background: rgba(245, 158, 11, 0.15) !important;
+  border-color: var(--warning) !important;
+  color: #fbbf24 !important;
+}
+
 /* ===== ANIMATIONS ===== */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(10px); }
